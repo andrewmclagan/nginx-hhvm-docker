@@ -91,3 +91,17 @@ docker-compose up
 Voila! simply visit `laravel.local` and you have a fully load-balanced, horizintally scaled application inferstructure!
 
 **NOTE:** Make sure you add `laravel.local` to your hosts file if developing locally with the IP address of the `docker-machine` instance.
+
+## Configuration
+
+To customize any of the settings for application files, `HHVM`, `PHP`, `Nginx` or `Systemd` the following environment variables are available: 
+
+* **APP_PATH** path to your application files, default: `./`
+
+* **CONFIG_SUPERVISORD** supervisord config file, default: `./config/supervisord.conf`
+
+* **CONFIG_PHP** php.ini or HHVM.ini settings, default: `./config/php.ini`
+
+* **CONFIG_NGINX** nginx config file, default: `./config/nginx.conf`
+
+* **CONFIG_ENTRY** docker entrypoint script, default: `./docker-entrypoint.sh`

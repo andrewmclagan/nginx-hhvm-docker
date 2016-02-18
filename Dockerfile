@@ -57,8 +57,7 @@ RUN cd $HOME && \
 
 RUN mkdir -p /var/www
 WORKDIR /var/www
-ADD ${APP_PATH} /var/www
-RUN composer install --prefer-dist --no-interaction -vvv  
+ADD ${APP_PATH} /var/www 
 
 ################################################################################
 # Configuration

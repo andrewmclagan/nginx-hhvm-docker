@@ -18,7 +18,7 @@ ENV CONFIG_PHP "./config/php.ini"
 
 ENV CONFIG_NGINX "./config/nginx.conf"
 
-ENV CONFIG_ENTRY "./docker-entrypoint.sh"
+ENV CONFIG_ENTRY "./config/docker-entrypoint.sh"
 
 ################################################################################
 # Install supervisor

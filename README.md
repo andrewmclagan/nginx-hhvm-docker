@@ -4,14 +4,14 @@ A super fast, production hardened `Dockerfile` for Laravel [5.2.x] with incredib
 
 **Note** due to issues with Boot2Docker and VirtualBox response times on a local environment (with these tools) is slightly degraded with local volumes enabled.
 
-### Stack
+## Stack
 
 * **HHVM** (Facebooks PHP-7 runtime)
 * **Nginx** (FastCGI web-server)
 * **Composer** (PHP package manager)
 * **PHPUnit** (PHP unit testing)
 
-### Usage
+## Usage
 
 Preferably used in a horizontally scaled Docker container environment (such as docker-compose) run alongside other services such as Redis and MariaDB.
 
@@ -19,19 +19,19 @@ Preferably used in a horizontally scaled Docker container environment (such as d
 
 To create the base image `andrewmclagan/laravel-hhvm-docker`, execute the following command within the folder:
 
-````
+````Bash
 docker build -t andrewmclagan/laravel-hhvm-docker ./
 ````
 
 Start your image binding the external ports 80 in all interfaces to your container:
 
-````
+````Bash
 docker run -d -p 80:80 andrewmclagan/laravel-hhvm-docker
 ````
 
 Test your deployment:
 
-````
+````Bash
 curl http://localhost/
 ````
 
@@ -39,7 +39,7 @@ curl http://localhost/
 
 Below is an example running Laravel in a distributed environment:
 
-````
+````YAML
 load_balancer:
     image: tutum/haproxy
     links:
@@ -78,13 +78,13 @@ web:
 
 Firstly lets scale the `web` servers, from your project execute:
 
-````
+````Bash
 docker-compose scale web=3
 ````
 
 Now we boot the rest of the services by executing:
 
-````
+````Bash
 docker-compose up
 ````
 

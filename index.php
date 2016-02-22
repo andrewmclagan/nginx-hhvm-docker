@@ -3,8 +3,12 @@
 
 <style>
 body {
-	padding: 0;
-	margin: 0;
+	padding: 0 !important;
+	margin: 0 !important;
+    font-family: 'Poppins', sans-serif;
+    width: auto !important;
+    text-align: center;
+    background: #eaebed;
 }
 .title {
     margin: 55px 0 30px 0;
@@ -33,6 +37,13 @@ body {
     background-color: #22b8eb;
     background-repeat: no-repeat;
     min-height: 269px;
+    margin: 0 0 50px 0;
+}
+table {
+    max-width: 800px;
+    background: #fff;
+    padding: 15px;
+    margin: 15px auto;
 }
 </style>
 

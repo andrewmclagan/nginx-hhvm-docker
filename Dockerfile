@@ -11,7 +11,7 @@ MAINTAINER "Andrew McLagan" <andrew@ethicaljobs.com.au>
 ################################################################################
 
 RUN apt-get update && apt-get install -my supervisor \
-  	&& apt-get clean
+    && apt-get clean
 
 ################################################################################
 # Install HHVM
@@ -56,7 +56,7 @@ COPY ./config/nginx.conf /etc/nginx/nginx.conf
 # Copy source
 ##############################################################################
 
-COPY ./index.php /var/www/public
+COPY ./index.php /var/www/public/index.php
 
 ################################################################################
 # Boot

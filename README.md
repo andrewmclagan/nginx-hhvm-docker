@@ -1,8 +1,10 @@
 # laravel-hhvm-docker
 
-A super fast, production hardened `Dockerfile` for Laravel [5.2.x] with incredible response times. See [link](http://goo.gl/Adqu0i) for the why. Perfect for horizontally distributed `Laravel` applications run within a Docker container cluster.
+A super fast, production hardened HHVM / PHP-7 `Dockerfile` served by Nginx forward proxy. See [link](http://goo.gl/Adqu0i) for the why. Perfect for horizontally distributed `Laravel` applications run within a Docker container cluster.
 
 **Note** due to issues with Boot2Docker and VirtualBox response times on a local environment (with these tools) is slightly degraded with local volumes enabled.
+
+**Note** Installs [hirak/prestissimo](https://github.com/hirak/prestissimo) composer parallel install plugin. If you have issues with composer installs remove this plugin.
 
 ## Stack
 
@@ -17,16 +19,16 @@ Preferably used in a horizontally scaled Docker container environment (such as d
 
 #### Docker
 
-To create the base image `andrewmclagan/laravel-hhvm-docker`, execute the following command within the folder:
+To create the base image `andrewmclagan/nginx-hhvm-docker`, execute the following command within the folder:
 
 ````Bash
-docker build -t andrewmclagan/laravel-hhvm-docker ./
+docker build -t andrewmclagan/nginx-hhvm-docker ./
 ````
 
 Start your image binding the external ports 80 in all interfaces to your container:
 
 ````Bash
-docker run -d -p 80:80 andrewmclagan/laravel-hhvm-docker
+docker run -d -p 80:80 andrewmclagan/nginx-hhvm-docker
 ````
 
 Test your deployment:
@@ -62,7 +64,7 @@ database:
         - "3306:3306"         
 
 web:
-    image: andrewmclagan/laravel-hhvm-docker
+    image: andrewmclagan/nginx-hhvm-docker
     volumes:
         - ./path/to/laravel:/var/www
     links:
@@ -94,14 +96,6 @@ Voila! simply visit `laravel.local` and you have a fully load-balanced, horizint
 
 ## Configuration
 
-To customize any of the settings for application files, `HHVM`, `PHP`, `Nginx` or `Systemd` the following environment variables are available: 
+We reccomend you create your own Dockerfile build, based upon this image.
 
-* **APP_PATH** path to your application files, default: `./`
-
-* **CONFIG_SUPERVISORD** supervisord config file, default: `./config/supervisord.conf`
-
-* **CONFIG_PHP** php.ini or HHVM.ini settings, default: `./config/php.ini`
-
-* **CONFIG_NGINX** nginx config file, default: `./config/nginx.conf`
-
-* **CONFIG_ENTRY** docker entrypoint script, default: `./docker-entrypoint.sh`
+Image is based upon the official nginx docker repository, see [git repo](https://github.com/nginxinc/docker-nginx) for more information.

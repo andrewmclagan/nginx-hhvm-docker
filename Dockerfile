@@ -7,20 +7,6 @@ FROM nginx
 MAINTAINER "Andrew McLagan" <andrew@ethicaljobs.com.au>
 
 ################################################################################
-# Default Environment 
-################################################################################
-
-ENV APP_PATH "./"
-
-ENV CONFIG_SUPERVISORD "./config/supervisord.conf"
-
-ENV CONFIG_PHP "./config/php.ini"
-
-ENV CONFIG_NGINX "./config/nginx.conf"
-
-ENV CONFIG_ENTRY "./config/docker-entrypoint.sh"
-
-################################################################################
 # Install supervisor
 ################################################################################
 
@@ -31,16 +17,19 @@ RUN apt-get update && apt-get install -my supervisor \
 # Install HHVM
 ################################################################################
 
+ENV HHVM_VERSION "3.12.0~jessie"
+
 RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449 && \
     echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list && \
     apt-get update -y && \
-    apt-get install -y hhvm
+    apt-get install -y hhvm=${HHVM_VERSION} \
+    && apt-get clean
 
 ################################################################################
 # Install tools
 ################################################################################
 
-RUN apt-get update -y && apt-get install -y git wget curl \
+RUN apt-get update -y && apt-get install -y git wget \
     && apt-get clean
 
 RUN cd $HOME && \
@@ -51,33 +40,28 @@ RUN cd $HOME && \
     chmod +x phpunit.phar && \
     mv phpunit.phar /usr/local/bin/phpunit  
 
-################################################################################
-# Install application
-################################################################################
-
-RUN mkdir -p /var/www
-WORKDIR /var/www
-ADD ${APP_PATH} /var/www 
+RUN composer global require hirak/prestissimo
 
 ################################################################################
 # Configuration
 ##############################################################################
 
-COPY ${CONFIG_ENTRY} /entrypoint.sh
-RUN chmod +x /entrypoint.sh  
+COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-COPY ${CONFIG_SUPERVISORD} /etc/supervisor/conf.d/supervisord.conf
+COPY ./config/php.ini /etc/hhvm/custom.ini
 
-COPY ${CONFIG_PHP} /etc/hhvm/custom.ini
+COPY ./config/nginx.conf /etc/nginx/nginx.conf
 
-COPY ${CONFIG_NGINX} /etc/nginx/nginx.conf
+################################################################################
+# Copy source
+##############################################################################
+
+COPY ./index.php /var/www/public
 
 ################################################################################
 # Boot
 ################################################################################
 
 EXPOSE 80 443
-
-ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["/usr/bin/supervisord"]

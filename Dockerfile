@@ -19,7 +19,7 @@ RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e728
 # Install supervisor, HHVM & tools
 ################################################################################
 
-RUN apt-get update && apt-get install -my supervisor hhvm=${HHVM_VERSION} git wget \
+RUN apt-get update && apt-get install -my supervisor hhvm=${HHVM_VERSION} git wget mailutils sendmail \
     && apt-get clean
 
 ################################################################################
@@ -42,7 +42,7 @@ RUN composer global require hirak/prestissimo
 
 COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-COPY ./config/php.ini /etc/hhvm/custom.ini
+COPY ./config/php.ini /etc/hhvm/php.ini
 
 COPY ./config/nginx.conf /etc/nginx/nginx.conf
 

@@ -19,7 +19,7 @@ RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e728
 # Install supervisor, HHVM & tools
 ################################################################################
 
-RUN apt-get update && apt-get install -my supervisor hhvm=${HHVM_VERSION} git wget mailutils sendmail \
+RUN apt-get update && apt-get install -my supervisor hhvm=${HHVM_VERSION} git wget curl mailutils sendmail \
     && apt-get clean
 
 ################################################################################

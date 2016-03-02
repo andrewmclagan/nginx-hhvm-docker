@@ -10,8 +10,6 @@ MAINTAINER "Andrew McLagan" <andrew@ethicaljobs.com.au>
 # Add HHVM repo
 ################################################################################
 
-ENV HHVM_VERSION "3.12.0~jessie"
-
 RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449 && \
     echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list
 
@@ -19,7 +17,7 @@ RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e728
 # Install supervisor, HHVM & tools
 ################################################################################
 
-RUN apt-get update && apt-get install -my supervisor hhvm=${HHVM_VERSION} git wget curl mailutils sendmail \
+RUN apt-get update && apt-get install -my supervisor hhvm git wget curl mailutils sendmail \
     && apt-get clean
 
 ################################################################################

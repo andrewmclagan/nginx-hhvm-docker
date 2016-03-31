@@ -2,9 +2,18 @@
 # Base image
 ################################################################################
 
-FROM nginx
+FROM php:7-cli
 
 MAINTAINER "Andrew McLagan" <andrew@ethicaljobs.com.au>
+
+################################################################################
+# Add Nginx repo
+################################################################################
+
+ENV NGINX_VERSION 1.9.12-1~jessie
+
+RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 \
+    && echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list \
 
 ################################################################################
 # Add HHVM repo
@@ -14,11 +23,31 @@ RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e728
     echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list
 
 ################################################################################
-# Install supervisor, HHVM & tools
+# Install supervisor, HHVM, Nginx & tools
 ################################################################################
 
-RUN apt-get update && apt-get install -my supervisor hhvm git wget curl mailutils sendmail \
+RUN apt-get update && apt-get install -my \
+	supervisor \ 
+	hhvm \ 
+	ca-certificates \
+	nginx=${NGINX_VERSION} \
+	nginx-module-xslt \
+	nginx-module-geoip \
+	nginx-module-image-filter \
+	gettext-base \	
+	git \ 
+	wget \ 
+	curl \ 
+	mailutils \ 
+	sendmail \
     && apt-get clean
+
+################################################################################
+# Configure Nginx
+################################################################################    
+
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
 ################################################################################
 # Install tools

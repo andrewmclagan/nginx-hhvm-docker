@@ -35,11 +35,13 @@ RUN apt-get update && apt-get install -my \
 	nginx-module-geoip \
 	nginx-module-image-filter \
 	gettext-base \	
+	libmcrypt-dev \
 	git \ 
 	wget \ 
 	curl \ 
 	mailutils \ 
 	sendmail \
+	&& docker-php-ext-install mcrypt mbstring \
     && apt-get clean
 
 ################################################################################

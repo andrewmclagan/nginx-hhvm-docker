@@ -7,20 +7,17 @@ FROM php:7-cli
 MAINTAINER "Andrew McLagan" <andrew@ethicaljobs.com.au>
 
 ################################################################################
-# Add Nginx repo
+# Add Nginx and HHVM repos
 ################################################################################
 
-ENV NGINX_VERSION 1.9.12-1~jessie
+ENV NGINX_VERSION 1.9.14-1~jessie
+
+ENV HHVM_VERSION need-to-add-versioning
 
 RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 \
     && echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list \
-
-################################################################################
-# Add HHVM repo
-################################################################################
-
-RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449 && \
-    echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list
+	&& apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449 && \
+    echo "deb http://dl.hhvm.com/debian jessie main" | tee /etc/apt/sources.list.d/hhvm.list
 
 ################################################################################
 # Install supervisor, HHVM, Nginx & tools
@@ -39,7 +36,6 @@ RUN apt-get update && apt-get install -my \
 	git \ 
 	wget \ 
 	curl \ 
-	mailutils \ 
 	sendmail \
 	&& docker-php-ext-install mcrypt mbstring \
     && apt-get clean

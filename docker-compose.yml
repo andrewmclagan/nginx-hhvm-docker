@@ -1,0 +1,11 @@
+load_balancer:
+    image: dockercloud/haproxy
+    links:
+        - web
+    ports:
+        - "80:80"   
+        - "443:443"       
+web:
+    image: nginx-hhvm
+    environment: 
+        - VIRTUAL_HOST=nginx-hhvm.app

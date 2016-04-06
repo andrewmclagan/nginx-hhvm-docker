@@ -26,6 +26,8 @@ RUN apt-get update && apt-get install -my \
 	wget \
 	curl \
 	sendmail \
+	sqlite3 \
+	libsqlite3-dev \
     && apt-get clean
 
 ################################################################################

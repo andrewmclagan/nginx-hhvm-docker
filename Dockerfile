@@ -2,50 +2,31 @@
 # Base image
 ################################################################################
 
-FROM php:7-cli
+FROM nginx
 
 MAINTAINER "Andrew McLagan" <andrew@ethicaljobs.com.au>
 
 ################################################################################
-# Add Nginx and HHVM repos
+# Add HHVM repo
 ################################################################################
-
-ENV NGINX_VERSION 1.9.14-1~jessie
 
 ENV HHVM_VERSION need-to-add-versioning
 
-RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 \
-    && echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list \
-	&& apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449 && \
-    echo "deb http://dl.hhvm.com/debian jessie main" | tee /etc/apt/sources.list.d/hhvm.list
+RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449 && \
+    echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list
 
 ################################################################################
-# Install supervisor, HHVM, Nginx & tools
+# Install supervisor, HHVM & tools
 ################################################################################
 
 RUN apt-get update && apt-get install -my \
-	supervisor \ 
-	hhvm \ 
-	ca-certificates \
-	nginx=${NGINX_VERSION} \
-	nginx-module-xslt \
-	nginx-module-geoip \
-	nginx-module-image-filter \
-	gettext-base \	
-	libmcrypt-dev \
-	git \ 
-	wget \ 
-	curl \ 
+	supervisor \
+	hhvm \
+	git \
+	wget \
+	curl \
 	sendmail \
-	&& docker-php-ext-install mcrypt mbstring \
     && apt-get clean
-
-################################################################################
-# Configure Nginx
-################################################################################    
-
-RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
 ################################################################################
 # Install tools

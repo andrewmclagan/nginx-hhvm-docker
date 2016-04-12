@@ -54,6 +54,8 @@ COPY ./config/php.ini /etc/hhvm/php.ini
 
 COPY ./config/nginx.conf /etc/nginx/nginx.conf
 
+COPY ./config/.bashrc /root/.bashrc
+
 ################################################################################
 # Copy source
 ##############################################################################

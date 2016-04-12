@@ -75,6 +75,10 @@ COPY ./config/php.ini /etc/hhvm/php.ini
 
 COPY ./config/nginx.conf /etc/nginx/nginx.conf
 
+COPY ./config/conf.d/config-1.conf /etc/nginx/conf.d/config-1.conf
+
+COPY ./config/sites-enabled/default /etc/nginx/sites-enabled/default
+
 ################################################################################
 # Copy source
 ##############################################################################

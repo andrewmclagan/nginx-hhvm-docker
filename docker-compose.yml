@@ -9,3 +9,6 @@ web:
     image: nginx-hhvm
     environment: 
         - VIRTUAL_HOST=nginx-hhvm.app
+    volumes:
+        - ./config/conf.d:/etc/nginx/conf.d
+        - ./config/sites-enabled:/etc/nginx/sites-enabled

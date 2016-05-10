@@ -17,4 +17,4 @@
 # alias cp='cp -i'
 # alias mv='mv -i'
 
-alias phpunit='hhvm -d hhvm.jit=0 '
+alias php='hhvm -d hhvm.jit=0 '

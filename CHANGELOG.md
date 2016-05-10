@@ -1,0 +1,2 @@
+- added bash aliases 
+- added `php='hhvm -d hhvm.jit=0 '` to disable cli JIT compilation, for performance

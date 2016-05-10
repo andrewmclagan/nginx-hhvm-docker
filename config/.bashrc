@@ -20,4 +20,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 alias php='hhvm -d hhvm.jit=0 '
-alias phpunit='hhvm -d hhvm.jit=0 '
+alias phpunit='hhvm -d hhvm.jit=0 phpunit '
+
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx

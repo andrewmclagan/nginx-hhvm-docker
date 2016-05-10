@@ -5,6 +5,8 @@
 # PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
 # umask 022
 
+export TERM=xterm
+
 # You may uncomment the following lines if you want `ls' to be colorized:
 export LS_OPTIONS='--color=auto'
 eval "`dircolors`"

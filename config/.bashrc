@@ -21,6 +21,11 @@ alias mv='mv -i'
 
 alias php='hhvm -d hhvm.jit=0 '
 alias phpunit='hhvm -d hhvm.jit=0 /usr/local/bin/phpunit'
+alias composer='hhvm -d hhvm.jit=0 /usr/local/bin/composer'
 
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+
+echo "Welcome to nginx-hhvm-docker:latest"
+echo "-----------------------------------"
+echo "Production ready & lightning fast"

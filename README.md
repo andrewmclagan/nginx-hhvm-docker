@@ -1,6 +1,6 @@
 ## Deprecated
 
-PLease use: https://github.com/andrewmclagan/aphex
+PLease use: https://github.com/ethicaljobs/aphex
 
 # laravel-hhvm-docker
 
